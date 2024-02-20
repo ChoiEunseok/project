@@ -15,8 +15,8 @@ public class NaverNews {
   private final WebClient webClient;
   private String baseUrl = "https://openapi.naver.com";
   //개인 id정보로 수정!!
-  private final String Client_Id = "rU1BGqPDYCKpVAtW30FM";
-  private final String Client_Secret = "cOAsPt0pi2";
+  private final String Client_Id = "177TKgImS4UktpBniBG8";
+  private final String Client_Secret = "Ue8ZFwm4cQ";
 
   @Autowired
   public NaverNews(WebClient.Builder webClientBilder){
