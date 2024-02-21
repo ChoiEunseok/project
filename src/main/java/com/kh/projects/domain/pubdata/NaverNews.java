@@ -2,8 +2,6 @@ package com.kh.projects.domain.pubdata;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -27,14 +25,14 @@ public class NaverNews {
     this.webClient = webClientBilder
 //            .uriBuilderFactory(factory)
             .baseUrl(baseUrl)
-            .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE) //json포맷요청
+//            .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE) //json포맷요청
             .build();
   }
 
-  public String reqNews(String keyword){
+  public String reqNews(String keyword,int start, int display){
     final String query = keyword; //"LG화학";
-    final int display = 10;
-    final int start = 1;
+    //   final int display = 10;
+//    final int start = 1;
 
     // http get 요청하면 http 응답메시지 수신
     Mono<String> response = webClient.get()
