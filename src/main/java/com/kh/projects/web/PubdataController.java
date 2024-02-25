@@ -2,6 +2,7 @@ package com.kh.projects.web;
 
 
 import com.kh.projects.domain.pubdata.NaverNews;
+import com.kh.projects.domain.pubdata.StockPrice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PubdataController {
 
   private final NaverNews naverNews;
+  private final StockPrice stockPrice;
+
 
   @GetMapping("/news")      // get http://localhost:9080/pubdata/news
   public String news(){
@@ -32,6 +35,27 @@ public class PubdataController {
   ){
     log.info("keyword={}",keyword);
     String data = naverNews.reqNews(keyword,start,display);
+    return data;
+  }
+
+  @GetMapping("/stocks")
+  public String stocks(){
+
+    return "pubdata/stocks";
+  }
+
+  @ResponseBody
+  @GetMapping("/stocks/search")
+  public String searchStocks(
+          @RequestParam("itmsNm") String itmsNm,          //종목명
+          @RequestParam("beginBasDt") String beginBasDt,  //시작일
+          @RequestParam("endBasDt") String endBasDt,       //종료일
+          @RequestParam("numOfRows") int numOfRows,       //레코드수
+          @RequestParam("pageNo") int pageNo              //요청페이지
+  ){
+    String data = stockPrice.reqStockPrice(itmsNm,beginBasDt,endBasDt,numOfRows,pageNo);
+    log.info("itmsNm={},beginBasDt={},endBasDt={},numOfRows={},pageNo={}",itmsNm,beginBasDt,endBasDt,numOfRows,pageNo);
+    log.info("data={}", data);
     return data;
   }
 

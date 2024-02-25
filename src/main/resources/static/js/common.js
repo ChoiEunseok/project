@@ -72,7 +72,7 @@ class Pagination {
       document.getElementById(`page${i}`).addEventListener('click', evt => {
         this.setCurrentPage(i);
         //요청페이지 처리
-        callback(i);
+        callback();
         this.displayPagination(callback);
       });
     }
@@ -116,6 +116,9 @@ class Pagination {
   }
 }
 
+//날짜 문자열을 입력받아 포매팅된 문자열로 반환
+// in : Thu Feb 22 2024 13:20:18 GMT+0900 (한국 표준시)
+// out : 2024-02-01 pm 14:00
 function chageDateTime(dt) {
   // 주어진 날짜 문자열을 Date 객체로 변환
   const date = new Date(dt);
@@ -137,4 +140,31 @@ function chageDateTime(dt) {
   return dateString;
 }
 
-export { Pagination, chageDateTime };
+//날짜 객체(Date)를 입력받아 날짜문자열로 반환
+//in 날짜객체
+//out 2024-02-22
+function formatDate(date) {
+    const year = date.getFullYear();
+    //getMonth()는 1월은 0을 12월은 11을 반환
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+//숫자문자열을 입력받아 3자리단위로 콤마를 넣어 반환
+// in : 123456
+// out : 123,456
+function addCommasToNumberString(inputString) {
+    // 입력받은 문자열에서 숫자만 추출
+    let numberPart = inputString.replace(/[^0-9]/g, '');
+
+    // 숫자를 천단위로 콤마를 넣어 반환
+    return Number(numberPart).toLocaleString();
+}
+
+// 예시
+let inputNumberString = "1234567890";
+let formattedNumber = addCommasToNumberString(inputNumberString);
+console.log(formattedNumber);  // 출력: "1,234,567,890"
+
+export { Pagination, chageDateTime, formatDate, addCommasToNumberString };
